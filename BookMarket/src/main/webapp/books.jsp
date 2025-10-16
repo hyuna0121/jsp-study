@@ -15,12 +15,10 @@
 	<div class="container py-4">
   	<%@ include file="menu.jsp" %>
 
-    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-    	<div class="container-fluid py-5">
-      	<h1 class="display-5 fw-bold">도서목록</h1>
-        <p class="col-md-8 fs-4">BookList</p>
-      </div>
-    </div>
+   	<jsp:include page="title.jsp">
+   		<jsp:param value="도서목록" name="title"/>
+   		<jsp:param value="BookList" name="sub"/>
+   	</jsp:include>
     
     <% 
     	List<Book> listOfBooks = bookDAO.getAllBooks();
@@ -42,6 +40,12 @@
     			</p>
     			<p><%= book.getDescription().substring(0, 60) %>...</p>
     			<p><%= book.getUnitPrice() %>원</p>    			
+    			<p>
+    				<!-- 보조 기기(스크린 리더)에게 버튼처럼 동작하는 요소라고 알려줌 -->
+    				<a href="./book.jsp?id=<%= book.getBookId() %>" class="btn btn-secondary" role="button">
+    					상세 정보 &raquo;
+    				</a>
+    			</p>
     		</div>
     	</div>
     	
