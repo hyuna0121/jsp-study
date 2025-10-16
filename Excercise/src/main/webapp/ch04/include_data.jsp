@@ -12,7 +12,7 @@
 		
 		out.println("=== " + num + "단 ===<br>");
 		for (int i = 1; i < 10; i++) {
-			out.println(num + " * " + i + " = " + (num * i) + "<br>");
+			out.println(num + " * " + i + " = " + num * i + "<br>");
 		}
 	%>
 </body>

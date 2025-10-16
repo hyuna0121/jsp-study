@@ -7,8 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:useBean id="mul" class="ch04.com.dao.GuGuDan" />
+	<jsp:useBean id="gugudan" class="ch04.com.dao.GuGuDan" />
 	<h4>구구단 출력하기</h4>
-	<%= mul.process(5) %>	
+	<%
+		int num = 5;
+	
+		out.println("=== " + num + "단 ===<br>");
+		for (int i = 1; i < 10; i++) {
+			out.println(num + " * " + i + " = " + gugudan.process(num, i) + "<br>");
+		}
+	%>	
 </body>
 </html>
