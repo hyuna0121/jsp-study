@@ -52,7 +52,7 @@ public class BookRepository {
 		if (bookId == null) return null;
 
 		for (Book book : listOfBooks) {
-			if (book.getBookId().equals(bookId)) return book;
+			if (book != null && book.getBookId().equals(bookId)) return book; // 찾으면 바로 반환
 		}
 		
 		return null;
