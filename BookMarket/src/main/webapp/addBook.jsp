@@ -19,7 +19,9 @@
     </jsp:include>
     
     <div class="row align-items-md-stretch">
-    	<form name="newBook" action="./processAddBook.jsp" method="post">
+    <!-- 도서 이미지 파일을 업로드하기 위해 수정 -->
+    	<form name="newBook" action="processAddBook" 
+    				method="post" enctype="multipart/form-data">
 				<div class="mb-3 row">
 					<label class="col-sm-2">도서코드</label>
 					<div class="col-sm-3">
@@ -55,8 +57,7 @@
 					<div class="col-sm-3">
 						<input type="text" name="releaseDate" class="form-control">
 					</div>
-				</div>
-		
+				</div>	
 				<div class="mb-3 row">
 					<label class="col-sm-2">상세정보</label>
 					<div class="col-sm-5">
@@ -82,6 +83,12 @@
 						<input type="radio" name="condition" value="Old"> 중고도서 
 						<input type="radio" name="condition" value="EBook"> E-Book
 					</div>				
+				</div>
+				<div class="mb-3 row">
+					<label class="col-sm-2">이미지</label>
+					<div class="col-sm-5">
+					<input type="file" name="bookImage" class="form-control">
+					</div>
 				</div>		
 				<div class="mb-3 row">
 					<div class="col-sm-offset-2 col-sm-10">

@@ -35,7 +35,12 @@
     %>
 
     <div class="row align-items-md-stretch">
-      <div class="col-md-12">
+    	<div class="col-md-5">
+    		<%-- <img alt="도서이미지" src="./resources/images/<%= book.getFilename() %>" style="width: 70%;"> --%>
+    		<img alt="도서이미지" src="<%= request.getContextPath() %>/images/<%= book.getFilename() %>" style="width: 70%;">
+    	</div>
+    	
+      <div class="col-md-6">
       	<!-- Quiz: 도서 정보로 채워넣기(데이터 동적 바인딩) -->
 				<h3><b><%= book.getName() %></b></h3>
 				<p><%= book.getDescription() %></p>
