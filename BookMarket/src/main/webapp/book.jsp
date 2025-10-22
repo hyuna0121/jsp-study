@@ -70,7 +70,7 @@
 				<p>
 					<form action="./addCart.jsp?id=<%= book.getBookId() %>" method="post" name="addForm">
 						<input type="hidden" name="bookId" value="<%= book.getBookId() %>">
-						<a href="#" class="btn btn-info" onclick="addToCart()">도서주문 &raquo;</a> 
+						<a href="javascript:void(0)" class="btn btn-info" onclick="addToCart()">도서주문 &raquo;</a> 
 						<a href="./cart.jsp" class="btn btn-warning">장바구니 &raquo;</a> 
 						<a href="./books.jsp" class="btn btn-secondary">도서목록 &raquo;</a>
 					</form>
