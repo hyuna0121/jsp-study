@@ -7,6 +7,9 @@
 <title>Session</title>
 </head>
 <body>
-
+	<%
+		session.invalidate();
+		response.sendRedirect("session.jsp");
+	%>
 </body>
 </html>

@@ -14,6 +14,6 @@
 			response.sendRedirect("session_out.jsp");
 		}
 	%>
-	<button type="button"></button>
+	<a href="./session_out.jsp">로그아웃</a>
 </body>
 </html>
