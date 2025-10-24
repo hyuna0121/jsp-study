@@ -3,24 +3,33 @@
 <%@page import="dto.Book"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <jsp:useBean id="bookDAO" class="dao.BookRepository" scope="session" /> --%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>도서 목록</title>
+	<title>도서 편집</title>
 	<!-- 부트 스트랩 연결 -->
-	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> -->
-	<!-- 로컬로 직접 넣기 -->
-	<link rel="stylesheet" href="./resources/css/bootstrap.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	
+	<script type="text/javascript">
+		function deleteConfirm(id) {
+			if (confirm('해당 도서를 삭제합니다!!')) {
+				location.href = './deleteBook.jsp?id=' + id;
+			}
+		}
+	</script>
 </head>
 <body>
+	<!-- 도서 편집 페이지 -->
+	<%
+		String edit = request.getParameter("edit");
+	%>
 	<div class="container py-4">
   	<%@ include file="menu.jsp" %>
 
    	<jsp:include page="title.jsp">
-   		<jsp:param value="도서목록" name="title"/>
-   		<jsp:param value="BookList" name="sub"/>
+   		<jsp:param value="도서편집" name="title"/>
+   		<jsp:param value="BookEditing" name="sub"/>
    	</jsp:include>
    	
     <%@ include file="dbconn.jsp" %>
@@ -60,10 +69,22 @@
     			<p><%= rs.getString("b_description").substring(0, 60) %>...</p>
     			<p><%= rs.getString("b_unitPrice") %>원</p>    			
     			<p>
-    				<!-- 보조 기기(스크린 리더)에게 버튼처럼 동작하는 요소라고 알려줌 -->
-    				<a href="./book.jsp?id=<%= rs.getString("b_id") %>" class="btn btn-secondary" role="button">
-    					상세 정보 &raquo;
-    				</a>
+    				<%
+    					if ("update".equals(edit)) {
+    				%>		
+	    					<a href="./updateBook.jsp?id=<%= rs.getString("b_id") %>" class="btn btn-success" role="button">
+	    						수정 &raquo;
+	    					</a>	
+    				<%
+	    				} else if ("delete".equals(edit)) {
+	    			%>
+	    					<a href="javascript:void(0)" class="btn btn-danger" role="button" 
+	    					   onclick="deleteConfirm('<%= rs.getString("b_id") %>')">
+	    						삭제 &raquo;
+	    					</a>		    					
+	    			<%
+	    				}
+    				%>
     			</p>
     		</div>
     	</div>

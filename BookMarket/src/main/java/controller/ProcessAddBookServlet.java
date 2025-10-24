@@ -7,9 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import util.DBUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import dao.BookRepository;
 import dto.Book;
@@ -78,7 +82,8 @@ public class ProcessAddBookServlet extends HttpServlet {
         	filePart.write(uploadPath + File.separator + fileName);
         }
         
-        // ==== Book 객체 생성 및 저장 ====
+     // ==== Book 객체 생성 및 저장 ====
+        /*
         Book newBook = new Book();
         newBook.setBookId(bookId);
         newBook.setName(name);
@@ -95,6 +100,54 @@ public class ProcessAddBookServlet extends HttpServlet {
         
         BookRepository dao = BookRepository.getInstance();
         dao.addBook(newBook);
+		*/
+        
+        // 도서 등록 처리 DB 연동
+//        Connection conn = null;
+//        PreparedStatement pstmt = null;
+        
+        String sql = "INSERT INTO book (b_id, b_name, b_unitPrice, b_author, b_description, b_publisher, b_category, b_unitsInStock, b_releaseDate, b_condition, b_fileName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+//        try {
+//        	// 공통 메소드로 커넥션 획득
+//        	conn = DBUtil.getConnection();
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, bookId);
+//			pstmt.setString(2, name);
+//			pstmt.setInt(3, price);
+//			pstmt.setString(4, author);
+//			pstmt.setString(5, description);
+//			pstmt.setString(6, publisher);
+//			pstmt.setString(7, category);
+//			pstmt.setLong(8, stock);
+//			pstmt.setString(9, releaseDate);
+//			pstmt.setString(10, condition);
+//			pstmt.setString(11, fileName);
+//			pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			DBUtil.close(pstmt, conn); // 공통 메소드로 자원 해제
+//		}
+        
+        // try-with-resources 적용
+        try (Connection conn = DBUtil.getConnection();
+        	 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, bookId);
+			pstmt.setString(2, name);
+			pstmt.setInt(3, price);
+			pstmt.setString(4, author);
+			pstmt.setString(5, description);
+			pstmt.setString(6, publisher);
+			pstmt.setString(7, category);
+			pstmt.setLong(8, stock);
+			pstmt.setString(9, releaseDate);
+			pstmt.setString(10, condition);
+			pstmt.setString(11, fileName);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
         
         // 등록 후 도서 목록 페이지로 리다이렉트
         response.sendRedirect("books.jsp");

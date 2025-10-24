@@ -1,3 +1,7 @@
+<%@page import="util.DBUtil"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.rmi.ConnectIOException"%>
 <%@page import="dto.Book"%>
 <%@page import="dao.BookRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -42,7 +46,7 @@
 		}
 		
 		// 2. BookRepository 객체 얻기
-		BookRepository bookDAO = BookRepository.getInstance(); 
+		BookRepository bookDAO = BookRepository.getInstance();  
 		
 		// 3. Book 객체 생성 후 요청 파라미터 값 담기
 		Book book = new Book();
@@ -58,7 +62,7 @@
 		book.setCondition(condition);
 		
 		// 4. addBook() 메소드로 저장
-		bookDAO.addBook(book);
+		bookDAO.addBook(book); 
 		
 		// 5. books.jsp() 페이지로 강제 이동하도록 작성
 		response.sendRedirect("./books.jsp");
