@@ -16,7 +16,14 @@
 			String sql = "DELETE FROM book WHERE b_id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bookId);
-			pstmt.executeUpdate();
+			int result = pstmt.executeUpdate();
+			
+			// (참고) SQL 쿼리문 실행 후 반환되는 결과값을 이용하여 오류 처리
+			if (result > 0) {
+				response.sendRedirect("editBook.jsp?edit=delete");
+			} else {
+				out.println("일치하는 도서가 없습니다.");
+			}
 		} catch (SQLException e) {
 			out.println("SQLException: " + e.getMessage());				
 		} finally {
@@ -24,8 +31,6 @@
 			if (pstmt != null) pstmt.close();
 			if (conn != null) conn.close();
 		}
-		
-		response.sendRedirect("editBook.jsp?edit=delete");
 	%>
 </body>
 </html>
